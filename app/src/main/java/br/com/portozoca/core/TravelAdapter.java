@@ -30,10 +30,10 @@ public class TravelAdapter extends CursorAdapter {
 
         // get the TextView for item name and item description
         TextView tv_Client = view.findViewById(R.id.tv_client);
-        tv_Client .setText(currentItem.getClient());
+        tv_Client .setText(currentItem.getCustomer());
         TextView tv_Ship = view.findViewById(R.id.tv_ship);
         tv_Ship.setText(currentItem.getShip());
         TextView tv_Date = view.findViewById(R.id.tv_date);
-        tv_Date.setText(currentItem.getTravelDate().toString());
+        tv_Date.setText(currentItem.getImportTime().toString());
     }
 }

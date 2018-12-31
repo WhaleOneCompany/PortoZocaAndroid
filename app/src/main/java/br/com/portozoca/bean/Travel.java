@@ -7,8 +7,9 @@ public class Travel {
     private Long id;
     private String name;
     private String ship;
-    private Date travelDate;
-    private String client;
+    private String customer;
+    private Integer status;
+    private Date importTime;
 
     public Long getId() {
         return id;
@@ -34,19 +35,27 @@ public class Travel {
         this.ship = ship;
     }
 
-    public Date getTravelDate() {
-        return travelDate;
+    public Date getImportTime() {
+        return importTime;
     }
 
-    public void setTravelDate(Date travelDate) {
-        this.travelDate = travelDate;
+    public void setImportTime(Date importTime) {
+        this.importTime = importTime;
     }
 
-    public String getClient() {
-        return client;
+    public String getCustomer() {
+        return customer;
     }
 
-    public void setClient(String client) {
-        this.client = client;
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

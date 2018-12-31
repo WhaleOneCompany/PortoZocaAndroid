@@ -6,4 +6,7 @@
     <string name="synchronize_success">Sincronização realizada com sucesso!</string>
     <string name="select_travel">Selecione uma viagem:</string>
     <string name="search">Pesquisar...</string>
+    <string name="no_permission_camera">Sem Permissão para abrir a câmera!</string>
+    <string name="fail_open_camera">Falha ao abrir a câmera!</string>
+    <string name="fail_open_gallery">Falha ao abrir a galeria!</string>
 </resources>

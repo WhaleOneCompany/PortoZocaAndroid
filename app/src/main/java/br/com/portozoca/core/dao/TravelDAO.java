@@ -20,7 +20,8 @@ public class TravelDAO {
     public static final String COLUMN_NAME = "Name";
     public static final String COLUMN_SHIP = "Ship";
     public static final String COLUMN_CUSTOMER = "Customer";
-    public static final String COLUMN_TRAVEL_DATE = "Travel_Date";
+    public static final String COLUMN_STATUS = "Status";
+    public static final String COLUMN_IMPORT_TIME = "Import_Time";
 
     private final Connection conn;
 
@@ -32,16 +33,18 @@ public class TravelDAO {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, bean.getName());
         values.put(COLUMN_SHIP, bean.getShip());
-        values.put(COLUMN_CUSTOMER, bean.getClient());
-        values.put(COLUMN_TRAVEL_DATE, fmtDate(bean.getTravelDate()));
+        values.put(COLUMN_CUSTOMER, bean.getCustomer());
+        values.put(COLUMN_STATUS, bean.getStatus());
+        values.put(COLUMN_IMPORT_TIME, fmtDate(bean.getImportTime()));
         conn.getDb().insert(TABLE_NAME, null, values);
     }
 
     public void update(Travel bean){
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, bean.getName());
-        values.put(COLUMN_CUSTOMER, bean.getClient());
-        values.put(COLUMN_TRAVEL_DATE, fmtDate(bean.getTravelDate()));
+        values.put(COLUMN_CUSTOMER, bean.getCustomer());
+        values.put(COLUMN_STATUS, bean.getStatus());
+        values.put(COLUMN_IMPORT_TIME, fmtDate(bean.getImportTime()));
         values.put(COLUMN_SHIP, bean.getShip());
         conn.getDb().update(TABLE_NAME, values, COLUMN_ID.concat(" = ? "), new String[]{bean.getId().toString()});
     }
@@ -55,7 +58,7 @@ public class TravelDAO {
                 .append(COLUMN_NAME).append(" LIKE ? OR ")
                 .append(COLUMN_SHIP).append(" LIKE ? OR ")
                 .append(COLUMN_CUSTOMER).append(" LIKE ? OR ")
-                .append(COLUMN_TRAVEL_DATE).append(" LIKE ? ")
+                .append(COLUMN_IMPORT_TIME).append(" LIKE ? ")
                 .toString();
 
         String qs = new StringBuilder().append("%").append(queryString.toUpperCase()).append("%").toString();
@@ -67,8 +70,8 @@ public class TravelDAO {
     }
 
     public Cursor getCursor(String filter, String[] filterArgs){
-        String[] columns = {COLUMN_ID, COLUMN_NAME, COLUMN_SHIP, COLUMN_CUSTOMER, COLUMN_TRAVEL_DATE};
-        String order = new StringBuilder().append(COLUMN_TRAVEL_DATE).append(" DESC").toString();
+        String[] columns = {COLUMN_ID, COLUMN_NAME, COLUMN_SHIP, COLUMN_CUSTOMER, COLUMN_STATUS, COLUMN_IMPORT_TIME};
+        String order = new StringBuilder().append(COLUMN_IMPORT_TIME).append(" DESC").toString();
         return conn.getDb().query(TABLE_NAME, columns, filter,filterArgs,null,null, order);
     }
 
@@ -95,8 +98,9 @@ public class TravelDAO {
         bean.setId((cursor.getLong(cursor.getColumnIndex(COLUMN_ID))));
         bean.setName((cursor.getString(cursor.getColumnIndex(COLUMN_NAME))));
         bean.setShip((cursor.getString(cursor.getColumnIndex(COLUMN_SHIP))));
-        bean.setClient((cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER))));
-        bean.setTravelDate((toDate(cursor.getString(cursor.getColumnIndex(COLUMN_TRAVEL_DATE)))));
+        bean.setCustomer((cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER))));
+        bean.setStatus((cursor.getInt(cursor.getColumnIndex(COLUMN_STATUS))));
+        bean.setImportTime((toDate(cursor.getString(cursor.getColumnIndex(COLUMN_IMPORT_TIME)))));
         return bean;
     }
 
